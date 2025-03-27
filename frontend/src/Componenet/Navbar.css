@@ -1,0 +1,21 @@
+.container {
+  max-width: 140rem;
+  padding: 2.2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(10, 10, 61);
+}
+.items {
+  width: 50vw;
+}
+.items ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+}
+.items ul li {
+  list-style: none;
+}

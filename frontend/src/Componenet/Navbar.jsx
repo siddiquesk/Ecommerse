@@ -1,0 +1,40 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "./Navbar.css";
+function Navbar() {
+  return (
+    <>
+      <header>
+        <div className="container">
+          <div className="logo">
+            <a href="/">Sufiyan siddique</a>
+          </div>
+          <div className="items">
+            <ul>
+              <li>
+                <NavLink to={"/"}>Home</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/about"}>About</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/contact"}>Contact</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/service"}>Services</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/register"}>Signup</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/login"}>Login</NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+    </>
+  );
+}
+
+export default Navbar;
