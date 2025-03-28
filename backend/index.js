@@ -5,7 +5,7 @@ const cors=require('cors');
 dotenv.config();
 const authRoutes=require('./routes/authRoutes');
 const contactRoutes=require("./routes/contacRoutes");
-const errorMiddleware=require("./ErrorMiddlware");
+const errorMiddleware=require("./Middleware/ErrorMiddlware");
 const {connectDB}=require("./database/db");
 let PORT=8000
 

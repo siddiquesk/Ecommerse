@@ -1,13 +1,19 @@
 import React from "react";
 import "../pages/styles/Home.css";
 import { Link } from "react-router-dom";
+import { useAuth } from "../store/Authstore";
 function Home() {
+  const { user } = useAuth();
   return (
     <>
       <main>
         <div className="hero-container">
           <div className="hero-content">
-            <h1>Welcome to Sufiyan Ecommerce Website</h1>
+            <h1>
+              Welcome to{" "}
+              <span id="userwala">{user ? user.username : "sufiyan"}</span>{" "}
+              Ecommerce Website
+            </h1>
             <h4> We are the world Best It Company</h4>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam

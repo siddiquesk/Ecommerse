@@ -133,3 +133,8 @@ button {
     max-width: 300px;
   }
 }
+#userwala {
+  color: rgb(146, 196, 146);
+  font-size: 32px;
+  text-transform: capitalize;
+}

@@ -1,20 +1,54 @@
 import React, { useState } from "react";
 import "../pages/styles/Contact.css";
+import { useAuth } from "../store/Authstore";
+import toast, { Toaster } from "react-hot-toast";
 function Contact() {
   const [contact, setContact] = useState({
     username: "",
     email: "",
     message: "",
   });
-
+  const [userData, setUserData] = useState(true);
+  const { user } = useAuth();
   const handleInput = (e) => {
     setContact({ ...contact, [e.target.name]: e.target.value });
     console.log(contact);
   };
 
-  const submitHandler = (e) => {
+  if (userData && user) {
+    //user mai pura token se verify hokar context api se state variable user aaya hai
+    setContact({
+      username: user.username,
+      email: user.email,
+      message: "",
+    });
+    setUserData(false);
+  }
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    alert(contact);
+    try {
+      const response = await fetch("http://localhost:8000/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contact), //contact ka data json mai convert karke backend mai bheja hai
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        setContact({
+          username: "",
+          email: "",
+          message: "",
+        });
+        toast.success("contact created Successfully!");
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
   };
 
   return (

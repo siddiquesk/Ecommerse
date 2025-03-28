@@ -9,6 +9,7 @@ import Service from "./pages/Service";
 import Navbar from "./Componenet/Navbar";
 import PageNotFound from "./pages/PageNotFound";
 import Footer from "./Footer/Footer";
+import Logout from "./pages/Logout";
 import { Toaster } from "react-hot-toast";
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<PageNotFound />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
       <Footer />
       <Toaster />

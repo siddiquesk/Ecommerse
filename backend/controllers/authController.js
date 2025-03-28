@@ -48,4 +48,14 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login };
+const userAuthorisation=async(req,res)=>{
+try{
+const userData=req.user;
+res.status(200).json({userData});
+}catch(err){
+  res.status(500).json({message: err.message});
+}
+}
+
+
+module.exports = { register, login,userAuthorisation };
