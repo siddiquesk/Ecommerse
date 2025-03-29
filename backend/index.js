@@ -14,7 +14,7 @@ let PORT=8000
 
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:5173'], // Allow requests from this origin
+  origin: ['http://localhost:5175'], // Allow requests from this origin
   credentials: true, // Allow session cookies from client to server
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
 }));

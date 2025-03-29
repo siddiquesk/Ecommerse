@@ -8,8 +8,8 @@ function AdminLayout() {
   return (
     <>
       <header>
-        <div className="container">
-          <nav>
+        <div id="panel-admin">
+          <nav id="navbar">
             <ul>
               <li>
                 <NavLink to="/admin/user">

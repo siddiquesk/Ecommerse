@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
   const [service, setService] = useState("");
+  const AuthorisationToken = `Bearer ${token}`;
 
   // Function to store token after successful login
   const storeTokenProps = (serverToken) => {
@@ -33,7 +34,7 @@ export const AuthProvider = ({ children }) => {
       const response = await fetch("http://localhost:8000/user", {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: AuthorisationToken,
         },
       });
 
@@ -83,8 +84,8 @@ export const AuthProvider = ({ children }) => {
         LogoutUser,
         user,
         service,
-      }}
-    >
+        AuthorisationToken
+      }}>
       {children}
     </AuthContext.Provider>
   );
