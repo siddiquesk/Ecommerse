@@ -10,6 +10,10 @@ import Navbar from "./Componenet/Navbar";
 import PageNotFound from "./pages/PageNotFound";
 import Footer from "./Footer/Footer";
 import Logout from "./pages/Logout";
+import AdminUser from "./pages/AdminUser";
+import AdminContact from "./pages/AdminContact";
+import AdminLayout from "./Componenet/layouts/AdminLayout";
+import AdminService from "./pages/AdminService";
 import { Toaster } from "react-hot-toast";
 function App() {
   return (
@@ -24,6 +28,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="user" element={<AdminUser />} />
+          <Route path="contact" element={<AdminContact />} />
+          <Route path="service" element={<AdminService />} />
+        </Route>
       </Routes>
       <Footer />
       <Toaster />

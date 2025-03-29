@@ -5,26 +5,29 @@ export const AuthContext = createContext();
 
 // AuthProvider component to provide authentication state to all children components
 export const AuthProvider = ({ children }) => {
-  // Initializing token state from localStorage (if it exists)
+  // State to store token, user data, and services data
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
   const [service, setService] = useState("");
-  // Function to store the token in localStorage (after login)
-  const storeTokenProps = (servertoken) => {
-    setToken(servertoken);
-    localStorage.setItem("token", servertoken);
+
+  // Function to store token after successful login
+  const storeTokenProps = (serverToken) => {
+    setToken(serverToken);
+    localStorage.setItem("token", serverToken);
   };
 
-  // Checking if the user is logged in based on the existence of a token
-  const isLoggedIn = !!token; // Converts token to a boolean (true if token exists, false otherwise)
-  console.log(token); // Debug log to check the current token value
+  // Check if the user is logged in by verifying the token
+  const isLoggedIn = !!token;
 
-  // Function to log out the user by removing the token and updating the state
+  // Logout function to remove token and clear state
   const LogoutUser = () => {
-    setToken(""); // Clear the token from state
-    localStorage.removeItem("token"); // Remove the token from localStorage
+    setToken("");
+    localStorage.removeItem("token");
+    setUser("");
+    setService("");
   };
 
+  // API Call to fetch user data (using token for authentication)
   const userAuthentication = async () => {
     try {
       const response = await fetch("http://localhost:8000/user", {
@@ -33,48 +36,67 @@ export const AuthProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
+
       if (response.ok) {
         const data = await response.json();
-        console.log("userdata", data.userData);
         setUser(data.userData);
+      } else {
+        console.error("Failed to fetch user data");
       }
-    } catch (err) {}
+    } catch (err) {
+      console.error("Error in user authentication:", err.message);
+    }
   };
 
+  // API Call to fetch service data (public data without authentication)
   const getServices = async () => {
     try {
       const response = await fetch("http://localhost:8000/service", {
         method: "GET",
       });
+
       if (response.ok) {
         const data = await response.json();
-        console.log("services", data.msg);
         setService(data.msg);
+      } else {
+        console.error("Failed to fetch service data");
       }
     } catch (err) {
-      console.log(err.message);
+      console.error("Error fetching service data:", err.message);
     }
   };
 
+  // Effect to fetch user data and services data on component mount
   useEffect(() => {
-    userAuthentication();
+    if (token) {
+      userAuthentication();
+    }
     getServices();
-  }, []);
+  }, [token]);
 
-  //jwt authentication logic in backend folder middleware folder authMiddleware
-  // Providing auth-related values to children components using Context API
-
+  // Providing authentication-related values to children components
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, storeTokenProps, LogoutUser, user, service }}>
+      value={{
+        isLoggedIn,
+        storeTokenProps,
+        LogoutUser,
+        user,
+        service,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Custom hook to access authentication state and functions
+// Custom hook to access authentication state and functions using Context API
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth must be used within an AuthProvider"); // Error if used outside AuthProvider
-  return context; // Return the context values
+
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+
+  return context;
 };
