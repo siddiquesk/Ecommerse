@@ -48,6 +48,7 @@ const login = async (req, res, next) => {
   }
 };
 
+
 const userAuthorisation=async(req,res)=>{
 try{
 const userData=req.user;
@@ -58,4 +59,4 @@ res.status(200).json({userData});
 }
 
 
-module.exports = { register, login,userAuthorisation };
+module.exports = { register, login, userAuthorisation };

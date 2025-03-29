@@ -8,10 +8,12 @@ export const AuthProvider = ({ children }) => {
   // Initializing token state from localStorage (if it exists)
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
-
+  const [service, setService] = useState("");
   // Function to store the token in localStorage (after login)
-  const storeTokenProps = (servertoken) =>
+  const storeTokenProps = (servertoken) => {
+    setToken(servertoken);
     localStorage.setItem("token", servertoken);
+  };
 
   // Checking if the user is logged in based on the existence of a token
   const isLoggedIn = !!token; // Converts token to a boolean (true if token exists, false otherwise)
@@ -39,8 +41,24 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {}
   };
 
+  const getServices = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/service", {
+        method: "GET",
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log("services", data.msg);
+        setService(data.msg);
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   useEffect(() => {
     userAuthentication();
+    getServices();
   }, []);
 
   //jwt authentication logic in backend folder middleware folder authMiddleware
@@ -48,7 +66,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, storeTokenProps, LogoutUser, user }}>
+      value={{ isLoggedIn, storeTokenProps, LogoutUser, user, service }}>
       {children}
     </AuthContext.Provider>
   );

@@ -5,8 +5,11 @@ const cors=require('cors');
 dotenv.config();
 const authRoutes=require('./routes/authRoutes');
 const contactRoutes=require("./routes/contacRoutes");
+const serviceRoutes=require('./routes/serviceRoutes');
+const adminRoutes=require('./routes/adminRoutes');
 const errorMiddleware=require("./Middleware/ErrorMiddlware");
 const {connectDB}=require("./database/db");
+const cookieParser = require('cookie-parser')
 let PORT=8000
 
 app.use(express.json());
@@ -16,8 +19,11 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these HTTP methods
 }));
 app.use(express.urlencoded({ extended:true }));
+app.use(cookieParser());
 app.use('/',authRoutes);
 app.use('/',contactRoutes);
+app.use('/',serviceRoutes);
+app.use('/admin',adminRoutes);
 app.use(errorMiddleware)
 
 

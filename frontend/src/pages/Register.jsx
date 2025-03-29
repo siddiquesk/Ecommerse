@@ -23,26 +23,17 @@ function Register() {
       const response = await fetch("http://localhost:8000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user), // Convert data to JSON and send it to the backend
+        body: JSON.stringify(user),
       });
-
-      if (response.ok) {
-        // 'ok' should be in lowercase
-        setUser({
-          username: "",
-          email: "",
-          phone: "",
-          password: "",
-        });
-        const data = await response.json();
-        storeTokenProps(response.data.token);
-        toast.success("Signup Successfully!");
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
-      } else {
-        console.error("Failed to register:", response.statusText);
+      const data = await response.json();
+      if (!response.ok) {
+        toast.error(data.message || "Registration failed");
+        return;
       }
+      setUser({ username: "", email: "", phone: "", password: "" });
+      storeTokenProps(data.token);
+      toast.success("Signup Successfully!");
+      setTimeout(() => navigate("/"), 1000);
     } catch (err) {
       toast.error(err.message);
     }
@@ -65,7 +56,6 @@ function Register() {
               />
             </div>
             <div className="formregister">
-              <h2 className="headingform">My form registration</h2>
               <br />
               <form onSubmit={handlesubmit}>
                 <div>

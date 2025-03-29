@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const MONGO_DB=process.env.MONGO_URL;
+console.log(MONGO_DB);
 const connectDB=async ()=>{
   try {
     await mongoose.connect(MONGO_DB,{

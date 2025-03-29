@@ -1,7 +1,7 @@
 const express = require('express');
+const router=express.Router();
 const validation = require('../Middleware/validation');
 const signUpSchema =require("../ZodValidation/authValidation");
-const router=express.Router();
 const authController=require('../controllers/authController');
 const authMiddelware=require("../Middleware/authMiddleware");
 router.route("/register").post(validation(signUpSchema), authController.register)
