@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   const userAuthentication = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:8000/api/auth/user", {
+      const response = await fetch("https://ecommerse-web.onrender.com/api/auth/user", {
         method: "GET",
         headers: {
           Authorization: AuthorizationToken,
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
   const getService = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/auth/service", {
+      const response = await fetch("https://ecommerse-web.onrender.com/api/auth/service", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

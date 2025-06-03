@@ -10,7 +10,7 @@ function AdminUsers() {
 
   const getUserData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/admin/users', {
+      const response = await fetch('https://ecommerse-web.onrender.com/api/admin/users', {
         method: 'GET',
         headers: {
           Authorization: AuthorizationToken,
@@ -31,7 +31,7 @@ function AdminUsers() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/admin/delete/${id}`, {
+      const response = await fetch(`https://ecommerse-web.onrender.com/api/admin/delete/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
