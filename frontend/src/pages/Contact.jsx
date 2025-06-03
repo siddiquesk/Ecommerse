@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
-import { BACKEND_URL } from "../utils/util"
+
 function Contact() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -35,7 +35,7 @@ function Contact() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${BACKEND_URL}/auth/contact`, {
+      const response = await fetch('http://localhost:8000/api/auth/contact', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

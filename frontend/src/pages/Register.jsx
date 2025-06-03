@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from 'react-hot-toast';
 import { useAuth } from "../context/AuthContext";
-import { BACKEND_URL } from "../utils/util"
+
 function Register() {
   const { saveTokenToLocalStorage } = useAuth();
   const [user, setUser] = useState({
@@ -21,7 +21,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${BACKEND_URL}/auth/register`, {
+    const response = await fetch('http://localhost:8000/api/auth/register', {
       method: "POST",
       headers: {
         "Content-Type": 'application/json',

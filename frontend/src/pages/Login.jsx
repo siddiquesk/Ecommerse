@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { BACKEND_URL } from "../utils/util"
+
 function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${BACKEND_URL}/auth/login`, {
+    const response = await fetch('http://localhost:8000/api/auth/login', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),

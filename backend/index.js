@@ -21,6 +21,8 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+
+
 app.use(express.json());
 
 // Route setup

@@ -1,7 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { BACKEND_URL } from "../utils/util"
 const AuthContext = createContext();
-
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(null);
@@ -25,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   const userAuthentication = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${BACKEND_URL}/auth/user`, {
+      const response = await fetch("http://localhost:8000/api/auth/user", {
         method: "GET",
         headers: {
           Authorization: AuthorizationToken,
@@ -47,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
   const getService = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/auth/service`, {
+      const response = await fetch("http://localhost:8000/api/auth/service", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

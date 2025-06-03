@@ -3,14 +3,14 @@ import { useAuth } from "../context/AuthContext";
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import { toast } from 'react-hot-toast';
-import { BACKEND_URL } from "../utils/util"
+
 function AdminUsers() {
   const { AuthorizationToken } = useAuth();
   const [users, setUsers] = useState([]);
 
   const getUserData = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/admin/users`, {
+      const response = await fetch('http://localhost:8000/api/admin/users', {
         method: 'GET',
         headers: {
           Authorization: AuthorizationToken,
@@ -31,7 +31,7 @@ function AdminUsers() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${BACKEND_URL}/admin/delete/${id}`, {
+      const response = await fetch(`http://localhost:8000/api/admin/delete/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

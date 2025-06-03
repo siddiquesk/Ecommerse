@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from "../context/AuthContext";
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
-import { BACKEND_URL } from "../utils/util"
+
 function AdminContact() {
   const { AuthorizationToken } = useAuth();
   const [contact, setContact] = useState([]);
 
   const getContactData = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/admin/contact`, {
+      const response = await fetch('http://localhost:8000/api/admin/contact', {
         method: 'GET',
         headers: {
           Authorization: AuthorizationToken,
